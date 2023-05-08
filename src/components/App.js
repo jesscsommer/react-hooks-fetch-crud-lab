@@ -11,16 +11,20 @@ function App() {
     fetch('http://localhost:4000/questions')
     .then(res => res.json())
     .then(data => setQuestions(data))
-  }, [])
+  }, [questions])
 
   const addQuestion = (newQ) => {
     setQuestions(questions => [...questions, newQ])
   }
 
+  const removeQuestion = (oldQ) => {
+    setQuestions(questions => questions.filter(q => q.id !== oldQ.id))
+  }
+
   return (
     <main>
       <AdminNavBar onChangePage={setPage} />
-      {page === "Form" ? <QuestionForm addQuestion={addQuestion} /> : <QuestionList questions={questions} />}
+      {page === "Form" ? <QuestionForm addQuestion={addQuestion} /> : <QuestionList questions={questions} removeQuestion={removeQuestion}/>}
     </main>
   );
 }
