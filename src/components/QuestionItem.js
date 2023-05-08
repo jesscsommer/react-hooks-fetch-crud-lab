@@ -13,6 +13,8 @@ function QuestionItem({ question, removeQuestion, updateQuestion }) {
     fetch(`http://localhost:4000/questions/${id}`, {
       method: 'DELETE'
     })
+    .then(res => res.json())
+    .then(() => removeQuestion(question))
   }
 
   const handleChange = (e, id) => {
@@ -37,10 +39,7 @@ function QuestionItem({ question, removeQuestion, updateQuestion }) {
         Correct Answer:
         <select onChange={(e) => handleChange(e, id)} defaultValue={correctIndex}>{options}</select>
       </label>
-      <button onClick={() => {
-        handleDelete(id)
-        removeQuestion(id)
-        }}>Delete Question</button>
+      <button onClick={() => handleDelete(id)}>Delete Question</button>
     </li>
   );
 }
